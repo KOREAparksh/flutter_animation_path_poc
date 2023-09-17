@@ -49,6 +49,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  curved_progress_bar:
+    dependency: "direct main"
+    description:
+      name: curved_progress_bar
+      sha256: ccd6eee8d89901c81ddea28cd96220dd8e0d8a294cc4e87174556bda87a5a1f7
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   fake_async:
     dependency: transitive
     description:
@@ -115,6 +123,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.3"
+  path_animator:
+    dependency: "direct main"
+    description:
+      name: path_animator
+      sha256: "3ab5970b7fbbc6eb32f55198771f91a2b4a0dbf85b1d5d5572d51c492dc2a4d4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -186,3 +202,4 @@ packages:
     version: "0.1.4-beta"
 sdks:
   dart: ">=3.1.1 <4.0.0"
+  flutter: ">=1.17.0"
