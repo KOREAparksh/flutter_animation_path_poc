@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_path_poc/curved_progress_bar.dart';
-import 'package:flutter_animation_path_poc/path_animator.dart';
+import 'package:flutter_animation_path_poc/path_animator_screen.dart';
 
 void main() {
   runApp(const MyApp());

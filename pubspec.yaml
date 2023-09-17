@@ -31,7 +31,6 @@ dependencies:
   flutter:
     sdk: flutter
   curved_progress_bar: ^1.0.2
-  path_animator: ^0.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
