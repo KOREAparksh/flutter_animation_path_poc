@@ -12,14 +12,46 @@ class PathAnimatorScreen extends StatefulWidget {
 class _PathAnimatorScreenState extends State<PathAnimatorScreen> with SingleTickerProviderStateMixin {
   AnimationController? _controller;
 
+  final treasureCount = 5;
+  final double x = 48;
+  final double height = 200;
+  final double radius = 80;
+  late final double maxWidth;
+
+  final path = Path();
+
+  void initPath() {
+    maxWidth = MediaQuery.of(context).size.width;
+    final left = x;
+    final right = maxWidth - x;
+    path.moveTo(left, 0);
+    //init treasure
+    path.lineTo(left, (height * 1) - radius);
+
+    //first wave
+    path.arcToPoint(Offset(x + radius, height * 1), radius: Radius.circular(radius), clockwise: false);
+    path.lineTo(right - radius, (height * 1));
+    path.arcToPoint(Offset(right - radius, height + (radius * 2)), radius: Radius.circular(radius));
+    path.lineTo(left + radius, (height + (radius * 2)));
+    path.arcToPoint(Offset(left, height + (radius * 3)), radius: Radius.circular(radius), clockwise: false);
+
+    //second wave
+    path.arcToPoint(Offset(x + radius, height + radius * 4), radius: Radius.circular(radius), clockwise: false);
+    path.lineTo(right - radius, height + radius * 4);
+    path.arcToPoint(Offset(right - radius, height + (radius * 6)), radius: Radius.circular(radius));
+    path.lineTo(left + radius, (height + (radius * 6)));
+    path.arcToPoint(Offset(left, height + (radius * 7)), radius: Radius.circular(radius), clockwise: false);
+  }
+
   @override
   void initState() {
     _controller = AnimationController(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 500),
       vsync: this,
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      initPath();
       _controller!.forward();
     });
 
@@ -34,8 +66,8 @@ class _PathAnimatorScreenState extends State<PathAnimatorScreen> with SingleTick
       ),
       body: CustomPaint(
         painter: _MyCustomPainter(
+          path: path,
           controller: _controller!,
-          maxWidth: MediaQuery.of(context).size.width,
         ),
       ),
     );
@@ -45,30 +77,14 @@ class _PathAnimatorScreenState extends State<PathAnimatorScreen> with SingleTick
 class _MyCustomPainter extends CustomPainter {
   _MyCustomPainter({
     required this.controller,
-    required this.maxWidth,
+    required this.path,
   }) : super(repaint: controller);
 
-  final double maxWidth;
+  final Path path;
   final AnimationController controller;
-  final double height = 200;
-  final double x = 48;
-  final double radius = 80;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final path = Path();
-    final left = x;
-    final right = maxWidth - x;
-    path.moveTo(left, 0);
-    path.lineTo(left, (height * 1) - radius);
-    path.arcToPoint(Offset(x + radius, height), radius: Radius.circular(radius), clockwise: false);
-    path.lineTo(right - radius, (height * 1));
-    path.arcToPoint(Offset(right - radius, height + (radius * 2)), radius: Radius.circular(radius));
-    path.lineTo(left + radius, (height + (radius * 2)));
-    path.arcToPoint(Offset(left + radius, height + (radius * 4)), radius: Radius.circular(radius), clockwise: false);
-    path.lineTo(right - radius, (height + (radius * 4)));
-    // path.close();
-
     // draw graph
     final animatedPath = PathAnimator.build(
       path: path,
